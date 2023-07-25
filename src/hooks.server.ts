@@ -9,6 +9,9 @@ import {
 	type MaybePromise
 } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
+import { conn } from '$lib/db/conn.server';
+import { Users } from '$lib/db/schema';
+import { eq } from 'drizzle-orm';
 async function authorization({
 	event,
 	resolve
@@ -21,6 +24,11 @@ async function authorization({
 		const session = await event.locals.getSession();
 		if (!session) {
 			throw redirect(303, '/');
+		}
+
+		if (session.user?.email) {
+			const user = await conn.select().from(Users).where(eq(Users.email, session.user.email));
+			event.locals.user = user[0];
 		}
 	}
 

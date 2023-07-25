@@ -9,7 +9,8 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write ."
+		"format": "prettier --plugin-search-dir . --write .",
+		"migrate": "drizzle-kit generate:pg"
 	},
 	"devDependencies": {
 		"@floating-ui/dom": "^1.4.5",
@@ -37,6 +38,9 @@
 	"type": "module",
 	"dependencies": {
 		"@auth/core": "^0.10.0",
-		"@auth/sveltekit": "^0.3.6"
+		"@auth/sveltekit": "^0.3.6",
+		"@vercel/postgres": "^0.4.1",
+		"drizzle-kit": "^0.19.11",
+		"drizzle-orm": "^0.27.2"
 	}
 }

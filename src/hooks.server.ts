@@ -26,9 +26,16 @@ async function authorization({
 			throw redirect(303, '/');
 		}
 
+		console.log('alley');
 		if (session.user?.email) {
-			const user = await conn.select().from(Users).where(eq(Users.email, session.user.email));
-			event.locals.user = user[0];
+			console.log('oop');
+			const users = await conn.select().from(Users).where(eq(Users.email, session.user.email));
+			if (users.length) {
+				event.locals.user = users[0];
+			} else {
+				const user = await conn.insert(Users).values({ email: session.user.email }).returning();
+				event.locals.user = user;
+			}
 		}
 	}
 

@@ -9,6 +9,7 @@ export async function load({ locals }) {
 		throw redirect(303, '/');
 	}
 	const user = locals.user;
+	console.log(user);
 
 	return {
 		streamed: {
